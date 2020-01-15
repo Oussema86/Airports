@@ -1,0 +1,37 @@
+﻿@model Airports.Models.Home.HomeModel;
+
+@{
+    ViewData["Title"] = "Airports";
+}
+
+<script>
+    let intervalMs = moment.duration(5, 'minutes').asMilliseconds();
+    setInterval(() => {
+        window.location.reload();
+    }, intervalMs);
+</script>
+
+@(Html
+        .Grid(Model.AirportsList)
+        .Build(columns =>
+        {
+            columns.Add(model => model.Iata).Titled("IATA");
+            columns.Add(model => model.Name).Titled("Name");
+            columns.Add(model => model.CountryName).Titled("Country");
+            columns.Add(model => model.Longitude).Titled("Longitude");
+            columns.Add(model => model.Latitude).Titled("Latitude");
+            columns.Add(model => model.Size).Titled("Size").UsingFilterOptions();
+            columns.Add(model => model.Status).Titled("Status").UsingFilterOptions();
+        })
+        .Empty("No data found")
+        .Filterable()
+        .Sortable()
+        .Pageable(pager =>
+        {
+            pager.ShowPageSizes = true;
+            pager.PageSizes = new Dictionary<Int32, String> { { 0, "All" }, { 10, "10" }, { 25, "25" } };
+            pager.RowsPerPage = 10;
+            pager.PagesToDisplay = 3;
+        })
+)
+

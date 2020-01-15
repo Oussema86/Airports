@@ -1,0 +1,95 @@
+﻿@model Airports.Models.Home.HomeModel;
+
+@{
+    ViewData["Title"] = "Distance calculation";
+}
+
+<script>
+    let principalAirportCode =  '@(Model.Principal)';
+    let targetAirportCode = '@(Model.Target)';
+    let allAirports = [];
+
+    $(document).ready(function () {
+        $('#principalDDL').change(function () {
+            principalAirportCode = $('#principalDDL').val();
+            calculateDistance();
+        });
+
+        $('#targetDDL').change(function () {
+            targetAirportCode = $('#targetDDL').val();
+            calculateDistance();
+        });
+
+        // Get all the airports in a JS array
+        allAirports = @Html.Raw(Json.Serialize(Model.AirportsList));
+
+        // Calculate if we have 2 parameters on load
+        calculateDistance();
+    });
+
+    function calculateDistance() {
+        $("#distance").html('');
+
+        if (allAirports.length > 0 && principalAirportCode != undefined && targetAirportCode != undefined) {
+            let principalAirport = allAirports.find(x => x.iata == principalAirportCode);
+            let targetAirport = allAirports.find(x => x.iata == targetAirportCode);
+
+            if (principalAirport != null && principalAirport != undefined && targetAirport != null && targetAirport != undefined) {
+                let principalAirportLong = principalAirport.lon;
+                let principalAirportLat = principalAirport.lat;
+
+                let targetAirportLong = targetAirport.lon;
+                let targetAirportLat = targetAirport.lat;
+
+                var distance = distanceInKmBetweenEarthCoordinates(principalAirportLat, principalAirportLong, targetAirportLat, targetAirportLong, 'K');
+                $("#distance").html(`The distance between the two airports is: ${distance}`);
+            }
+        }
+    }
+
+    function degreesToRadians(degrees) {
+        return degrees * Math.PI / 180;
+    }
+
+    function distanceInKmBetweenEarthCoordinates(lat1, lon1, lat2, lon2) {
+        var earthRadiusKm = 6371;
+
+        var dLat = degreesToRadians(lat2 - lat1);
+        var dLon = degreesToRadians(lon2 - lon1);
+
+        lat1 = degreesToRadians(lat1);
+        lat2 = degreesToRadians(lat2);
+
+        var a = Math.sin(dLat / 2) * Math.sin(dLat / 2) +
+            Math.sin(dLon / 2) * Math.sin(dLon / 2) * Math.cos(lat1) * Math.cos(lat2);
+        var c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+
+        return earthRadiusKm * c;
+    }
+</script>
+
+<div class="row">
+    <div class="col-5">
+        <label for="principalDDL">
+            Principal
+        </label>
+        @(Html.DropDownListFor(model => model.Principal, Model.AirportsList.Where(x => !string.IsNullOrEmpty(x.Name)).Select(x => new SelectListItem() { Text = $"[{x.Iata}] {x.Name}", Value = x.Iata }), "", new { @id = "principalDDL" })
+        )
+    </div>
+    <div class="col-5">
+        <label for="targetDDL">
+            Target
+        </label>
+        @(Html.DropDownListFor(model => model.Target, Model.AirportsList.Where(x => !string.IsNullOrEmpty(x.Name)).Select(x => new SelectListItem() { Text = $"[{x.Iata}] {x.Name}", Value = x.Iata }), "", new { @id = "targetDDL" })
+        )
+    </div>
+    <div class="col-2">
+        @*<button type="button" onclick="calculateDistance()">
+            Calculate
+        </button>*@
+    </div>
+</div>
+
+<div id="distance">
+
+</div>

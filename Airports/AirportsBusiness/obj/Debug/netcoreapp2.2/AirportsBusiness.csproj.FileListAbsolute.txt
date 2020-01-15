@@ -1,0 +1,9 @@
+C:\Users\MarvinG3\source\repos\Airports\AirportsBusiness\bin\Debug\netcoreapp2.2\AirportsBusiness.deps.json
+C:\Users\MarvinG3\source\repos\Airports\AirportsBusiness\bin\Debug\netcoreapp2.2\AirportsBusiness.dll
+C:\Users\MarvinG3\source\repos\Airports\AirportsBusiness\bin\Debug\netcoreapp2.2\AirportsBusiness.pdb
+C:\Users\MarvinG3\source\repos\Airports\AirportsBusiness\obj\Debug\netcoreapp2.2\AirportsBusiness.csprojAssemblyReference.cache
+C:\Users\MarvinG3\source\repos\Airports\AirportsBusiness\obj\Debug\netcoreapp2.2\AirportsBusiness.csproj.CoreCompileInputs.cache
+C:\Users\MarvinG3\source\repos\Airports\AirportsBusiness\obj\Debug\netcoreapp2.2\AirportsBusiness.AssemblyInfoInputs.cache
+C:\Users\MarvinG3\source\repos\Airports\AirportsBusiness\obj\Debug\netcoreapp2.2\AirportsBusiness.AssemblyInfo.cs
+C:\Users\MarvinG3\source\repos\Airports\AirportsBusiness\obj\Debug\netcoreapp2.2\AirportsBusiness.dll
+C:\Users\MarvinG3\source\repos\Airports\AirportsBusiness\obj\Debug\netcoreapp2.2\AirportsBusiness.pdb
